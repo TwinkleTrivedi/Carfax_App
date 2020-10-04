@@ -15,6 +15,7 @@
 		3EA62F95252A2AFB0060B1EF /* CarfaxAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA62F94252A2AFB0060B1EF /* CarfaxAppTests.swift */; };
 		3EA62FA0252A2AFB0060B1EF /* CarfaxAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA62F9F252A2AFB0060B1EF /* CarfaxAppUITests.swift */; };
 		3EA62FAF252A2CA10060B1EF /* CarfaxDic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA62FAE252A2CA10060B1EF /* CarfaxDic.swift */; };
+		3EFAB49D252A2F21005DB579 /* carfaxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAB49C252A2F21005DB579 /* carfaxTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		3EA62F9F252A2AFB0060B1EF /* CarfaxAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarfaxAppUITests.swift; sourceTree = "<group>"; };
 		3EA62FA1252A2AFB0060B1EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EA62FAE252A2CA10060B1EF /* CarfaxDic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarfaxDic.swift; sourceTree = "<group>"; };
+		3EFAB49C252A2F21005DB579 /* carfaxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = carfaxTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				3EA62FAE252A2CA10060B1EF /* CarfaxDic.swift */,
+				3EFAB49C252A2F21005DB579 /* carfaxTableViewCell.swift */,
 				3EA62F81252A2AFA0060B1EF /* ViewController.swift */,
 			);
 			path = UsedCar;
@@ -267,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EFAB49D252A2F21005DB579 /* carfaxTableViewCell.swift in Sources */,
 				3EA62FAF252A2CA10060B1EF /* CarfaxDic.swift in Sources */,
 				3EA62F82252A2AFA0060B1EF /* ViewController.swift in Sources */,
 				3EA62F80252A2AFA0060B1EF /* AppDelegate.swift in Sources */,
