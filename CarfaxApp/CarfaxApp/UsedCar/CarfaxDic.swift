@@ -11,24 +11,80 @@ protocol Carfax {
     func process_request(_ data:Data)
 }
 
+struct vehicleimageObj {
+    
+    var vehiclephoto=""
+    init(_ data:NSDictionary)
+    {
+        if let add = data["medium"] as? String
+        {
+            self.vehiclephoto = add
+        }
+    }
+}
+struct dealerObj {
+    
+    var city=""
+    var state=""
+    var dealerPhone=""
+    init(_ data:NSDictionary)
+    {
+        if let add = data["city"] as? String
+        {
+            self.city = add
+        }
+        if let add = data["state"] as? String
+        {
+            self.state = add
+        }
+        if let add = data["phone"] as? String
+        {
+            self.dealerPhone = add
+        }
+    }
+}
+
 struct carfaxObj {
-    var id=""
-    var image=""
-  
+    
+
+    var year=""
+    var make=""
+    var model=""
+    var trim=""
+    var price=""
+    var mileage=""
+    
     
     
     init(_ data:NSDictionary)
     {
-        
-        if let add = data["id"] as? String
+    
+        if let add = data["year"] as? String
         {
-            self.id = add
+            self.year = add
+        }
+        if let add = data["make"] as? String
+        {
+            self.make = add
+        }
+        if let add = data["model"] as? String
+        {
+            self.model = add
+        }
+        if let add = data["trim"] as? String
+        {
+            self.trim = add
+        }
+        if let add = data["currentPrice"] as? String
+        {
+            self.price = add
+        }
+        if let add = data["mileage"] as? String
+        {
+            self.mileage = add
         }
        
-        if let add = data["img"] as? String
-        {
-            self.image = add
-        }
+        
        
        
         

@@ -10,6 +10,15 @@ import UIKit
 
 class carfaxTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var VehiclePhoto: UIImageView!
+    
+    @IBOutlet weak var VehicleDetails1lbl: UILabel!
+
+    @IBOutlet weak var VehicleDetails2lbl: UILabel!
+    
+    
+    @IBOutlet weak var callDealerBtn: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
