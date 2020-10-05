@@ -47,19 +47,19 @@ struct dealerObj {
 struct carfaxObj {
     
 
-    var year=""
+    var year=0
     var make=""
     var model=""
     var trim=""
-    var price=""
-    var mileage=""
+    var price=0
+    var mileage=0
     
     
     
     init(_ data:NSDictionary)
     {
     
-        if let add = data["year"] as? String
+        if let add = data["year"] as? NSInteger
         {
             self.year = add
         }
@@ -75,11 +75,11 @@ struct carfaxObj {
         {
             self.trim = add
         }
-        if let add = data["currentPrice"] as? String
+        if let add = data["currentPrice"] as? NSInteger
         {
             self.price = add
         }
-        if let add = data["mileage"] as? String
+        if let add = data["mileage"] as? NSInteger
         {
             self.mileage = add
         }

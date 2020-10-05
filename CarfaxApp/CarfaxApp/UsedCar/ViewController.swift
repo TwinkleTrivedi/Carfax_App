@@ -25,6 +25,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         CarfaxusedcarData()
        
     }
+    
+    
+   
     func refresh()
     {
         if(self.carfaxTableview != nil)
@@ -38,7 +41,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 300;
+        return 330;
         
     }
     
@@ -63,11 +66,32 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
         }
         cell.VehicleDetails1lbl.text="\(listObj[indexPath.row].year) \(listObj[indexPath.row].make) \(listObj[indexPath.row].model)  \(listObj[indexPath.row].trim)"
-        cell.VehicleDetails2lbl.text="$\(listObj[indexPath.row].price) | \(listObj[indexPath.row].mileage) | \(dObj[indexPath.row].city),\(dObj[indexPath.row].state)"
+        
+        cell.VehicleDetails2lbl.text="$\(listObj[indexPath.row].price) | \(listObj[indexPath.row].mileage) Mi | \(dObj[indexPath.row].city),\(dObj[indexPath.row].state)"
         cell.callDealerBtn.setTitle("\(dObj[indexPath.row].dealerPhone)", for: .normal)
+        
+        cell.callDealerBtn.addTarget(self, action: #selector(callDealer(sender:)), for: .touchUpInside)
+         cell.callDealerBtn.tag=indexPath.row
         
         return cell
         
+    }
+    
+    @objc func callDealer(sender: UIButton)
+    {
+        
+      
+            
+            if let url = URL(string: "tel://\(dObj[sender.tag].dealerPhone)"),
+                UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler:nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            } else {
+                // add error message here
+            }
     }
     func CarfaxusedcarData()
     {
