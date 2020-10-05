@@ -48,39 +48,42 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x3N-sa-Nnh">
                                                     <rect key="frame" x="28" y="21" width="319" height="191"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="319" id="Hti-VQ-r6l"/>
                                                         <constraint firstAttribute="height" constant="191" id="q9r-Wq-Z6d"/>
+                                                        <constraint firstAttribute="width" secondItem="x3N-sa-Nnh" secondAttribute="height" multiplier="319:191" id="ruZ-nj-l6y"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNi-na-vwo">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNi-na-vwo">
                                                     <rect key="frame" x="28" y="226" width="319" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="319" id="BJl-Po-c7X"/>
+                                                        <constraint firstAttribute="width" secondItem="WNi-na-vwo" secondAttribute="height" multiplier="319:21" id="unC-MU-4KF"/>
                                                         <constraint firstAttribute="height" constant="21" id="wyq-ud-Lre"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WE2-l5-yXd">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WE2-l5-yXd">
                                                     <rect key="frame" x="28" y="257" width="319" height="21"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" secondItem="WE2-l5-yXd" secondAttribute="height" multiplier="319:21" id="0Gt-Ys-tLz"/>
                                                         <constraint firstAttribute="width" constant="319" id="C2z-ti-uLN"/>
                                                         <constraint firstAttribute="height" constant="21" id="MTb-PR-aF7"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJ7-Vr-QfG">
                                                     <rect key="frame" x="95.5" y="294" width="184" height="30"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="184" id="bcX-wa-6F5"/>
+                                                        <constraint firstAttribute="width" secondItem="sJ7-Vr-QfG" secondAttribute="height" multiplier="92:15" id="iLd-Yz-sfn"/>
                                                         <constraint firstAttribute="height" constant="30" id="tex-84-Ay7"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="17"/>
+                                                    <state key="normal" title="Call"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -94,6 +97,7 @@
                                                 <constraint firstItem="sJ7-Vr-QfG" firstAttribute="top" secondItem="WE2-l5-yXd" secondAttribute="bottom" constant="16" id="zot-xc-09C"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="VehicleDetails1lbl" destination="WNi-na-vwo" id="SQ1-87-Ry8"/>
                                             <outlet property="VehicleDetails2lbl" destination="WE2-l5-yXd" id="NLO-Qb-kmJ"/>

@@ -65,7 +65,12 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 }
             }
         }
-        cell.VehicleDetails1lbl.text="\(listObj[indexPath.row].year) \(listObj[indexPath.row].make) \(listObj[indexPath.row].model)  \(listObj[indexPath.row].trim)"
+        var trim = "\(listObj[indexPath.row].trim)"
+        if trim == "Unspecified"
+        {
+            trim=""
+        }
+        cell.VehicleDetails1lbl.text="\(listObj[indexPath.row].year) \(listObj[indexPath.row].make) \(listObj[indexPath.row].model)  \(trim)"
         
         cell.VehicleDetails2lbl.text="$\(listObj[indexPath.row].price) | \(listObj[indexPath.row].mileage) Mi | \(dObj[indexPath.row].city),\(dObj[indexPath.row].state)"
         cell.callDealerBtn.setTitle("\(dObj[indexPath.row].dealerPhone)", for: .normal)
