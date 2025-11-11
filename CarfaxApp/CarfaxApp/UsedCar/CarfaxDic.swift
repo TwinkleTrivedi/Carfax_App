@@ -16,9 +16,16 @@ struct vehicleimageObj {
     var vehiclephoto=""
     init(_ data:NSDictionary)
     {
-        if let add = data["medium"] as? String
-        {
-            self.vehiclephoto = add
+        // Try to get from firstPhoto.medium (old format)
+        if let fp = data["firstPhoto"] as? NSDictionary,
+           let medium = fp["medium"] as? String {
+            self.vehiclephoto = medium
+        }
+        // Try to get from large array (new format)
+        else if let largeArray = data["large"] as? NSArray,
+                largeArray.count > 0,
+                let firstImage = largeArray[0] as? String {
+            self.vehiclephoto = firstImage
         }
     }
 }
@@ -107,9 +114,20 @@ func GetDisplay_Data( _ url:String, _ handler:Carfax, _ ps:String)
         (
         _data, response, error) in
         
+        if let error = error {
+            print("Network error: \(error.localizedDescription)")
+            return
+        }
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            print("HTTP Status Code: \(httpResponse.statusCode)")
+        }
+        
         if let data = _data
         {
             handler.process_request(data)
+        } else {
+            print("No data received from API")
         }
         
     })

@@ -37,7 +37,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vehicleObj.count
+        return listObj.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -51,19 +51,27 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         let  cell=carfaxTableview.dequeueReusableCell(withIdentifier: "carfaxTableViewCell") as! carfaxTableViewCell
      
+        // Ensure we have valid data for this index
+        guard indexPath.row < listObj.count,
+              indexPath.row < vehicleObj.count,
+              indexPath.row < dObj.count else {
+            return cell
+        }
         
         let vehicleimg="\(vehicleObj[indexPath.row].vehiclephoto)"
         
-        print("listobj: \(listObj)")
-        let urlimg = URL(string: vehicleimg)
-        DispatchQueue.global(qos: .background).async {
-            let data = try? Data(contentsOf: urlimg!)
-            DispatchQueue.main.async {
-                if let imageData = data {
-                    
-                    cell.VehiclePhoto.image=UIImage(data: imageData)
+        // Only load image if URL is not empty
+        if !vehicleimg.isEmpty, let urlimg = URL(string: vehicleimg) {
+            DispatchQueue.global(qos: .background).async {
+                if let data = try? Data(contentsOf: urlimg) {
+                    DispatchQueue.main.async {
+                        cell.VehiclePhoto.image = UIImage(data: data)
+                    }
                 }
             }
+        } else {
+            // Set placeholder or clear image if no URL
+            cell.VehiclePhoto.image = nil
         }
         var trim = "\(listObj[indexPath.row].trim)"
         if trim == "Unspecified"
@@ -118,38 +126,69 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                     self.main1!.dObj.removeAll()
                     self.main1!.vehicleObj.removeAll()
                     let jsonData = try JSONSerialization.jsonObject(with: data, options: [])
-                    print("carfax:\(jsonData)")
+                    print("carfax JSON received")
                     
                     if let data_obj = jsonData as? NSDictionary
                     {
                         if let listings = data_obj["listings"] as? NSArray
                         {
+                            print("Found \(listings.count) listings")
                             for i in 0 ..< listings.count
                             {
                                 if let listDic = listings[i] as? NSDictionary
                                 {
+                                    // Parse images
                                     if let image = listDic["images"] as? NSDictionary
                                     {
-                                        if let fp = image["firstPhoto"] as? NSDictionary
-                                        {
-                                            self.main1!.vehicleObj.append(vehicleimageObj(fp))
-                                            print("image: \(fp["medium"]!)")
-                                            
-                                            
+                                        self.main1!.vehicleObj.append(vehicleimageObj(image))
+                                        // Try to print image URL for debugging
+                                        if let largeArray = image["large"] as? NSArray,
+                                           largeArray.count > 0,
+                                           let firstImage = largeArray[0] as? String {
+                                            print("image: \(firstImage)")
+                                        } else if let fp = image["firstPhoto"] as? NSDictionary,
+                                                  let medium = fp["medium"] as? String {
+                                            print("image: \(medium)")
                                         }
-                                        
+                                    } else {
+                                        // Add empty image object if no images found
+                                        self.main1!.vehicleObj.append(vehicleimageObj(NSDictionary()))
                                     }
-                                    print("year \(listDic["year"]!) make: \(listDic["make"]!) model \(listDic["model"]!) trim  \(listDic["trim"]!)  \(listDic["currentPrice"]!) \(listDic["mileage"]!)")
-                                   self.main1!.listObj.append(carfaxObj(listDic))
+                                    
+                                    // Parse vehicle data
+                                    if let year = listDic["year"] as? NSInteger,
+                                       let make = listDic["make"] as? String,
+                                       let model = listDic["model"] as? String {
+                                        print("year \(year) make: \(make) model \(model)")
+                                        self.main1!.listObj.append(carfaxObj(listDic))
+                                    }
+                                    
+                                    // Parse dealer data
                                     if let dealer = listDic["dealer"] as? NSDictionary
                                     {
-                                        print("location \(dealer["city"]!)\(dealer["state"]!) \(dealer["phone"]!)")
-                                        self.main1!.dObj.append(dealerObj(dealer))
+                                        if let city = dealer["city"] as? String,
+                                           let state = dealer["state"] as? String,
+                                           let phone = dealer["phone"] as? String {
+                                            print("location \(city) \(state) \(phone)")
+                                            self.main1!.dObj.append(dealerObj(dealer))
+                                        }
+                                    } else {
+                                        // Add empty dealer object if no dealer found
+                                        self.main1!.dObj.append(dealerObj(NSDictionary()))
                                     }
-                                    
-                                    
                                 }
                             }
+                            
+                            // Ensure all arrays have the same count
+                            let maxCount = max(self.main1!.listObj.count, self.main1!.vehicleObj.count, self.main1!.dObj.count)
+                            while self.main1!.vehicleObj.count < maxCount {
+                                self.main1!.vehicleObj.append(vehicleimageObj(NSDictionary()))
+                            }
+                            while self.main1!.dObj.count < maxCount {
+                                self.main1!.dObj.append(dealerObj(NSDictionary()))
+                            }
+                            
+                            print("Parsed \(self.main1!.listObj.count) vehicles, \(self.main1!.vehicleObj.count) images, \(self.main1!.dObj.count) dealers")
                         }
                         
                         
@@ -160,6 +199,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 }
                 catch
                 {
+                    print("Error parsing JSON: \(error)")
                     return
                 }
                 
