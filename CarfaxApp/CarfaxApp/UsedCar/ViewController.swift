@@ -92,19 +92,47 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @objc func callDealer(sender: UIButton)
     {
+        // Ensure we have a valid index
+        guard sender.tag < dObj.count else {
+            return
+        }
         
-      
+        let phoneNumber = dObj[sender.tag].dealerPhone
+        let dealerName = sender.tag < listObj.count ? "\(listObj[sender.tag].year) \(listObj[sender.tag].make) \(listObj[sender.tag].model)" : "Dealer"
+        
+        // Show alert before calling
+        let alert = UIAlertController(title: "Call Dealer", message: "Do you want to call \(phoneNumber) for \(dealerName)?", preferredStyle: .alert)
+        
+        // Cancel action
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        // Call action
+        alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
+            // Format phone number (remove any non-digit characters except +)
+            let cleanedPhone = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
             
-            if let url = URL(string: "tel://\(dObj[sender.tag].dealerPhone)"),
-                UIApplication.shared.canOpenURL(url) {
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler:nil)
+            if let url = URL(string: "tel://\(cleanedPhone)") {
+                if UIApplication.shared.canOpenURL(url) {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: { success in
+                            if !success {
+                                print("Failed to open phone dialer")
+                            }
+                        })
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
                 } else {
-                    UIApplication.shared.openURL(url)
+                    // Show error if phone calls are not available (e.g., on simulator)
+                    let errorAlert = UIAlertController(title: "Cannot Make Call", message: "Phone calls are not available on this device.", preferredStyle: .alert)
+                    errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(errorAlert, animated: true, completion: nil)
                 }
-            } else {
-                // add error message here
             }
+        }))
+        
+        // Present the alert
+        self.present(alert, animated: true, completion: nil)
     }
     func CarfaxusedcarData()
     {
